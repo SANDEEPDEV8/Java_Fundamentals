@@ -217,3 +217,49 @@ Constructor
 - **Instance blocks are useful** when multiple constructors share common code.
 - **Static blocks cannot access instance variables**, but instance blocks can access static variables.
 
+
+## **8. Static and Instance Example**
+```java
+class StaticExample {
+    // Static variable: shared across all instances
+    static int sharedCount = 0;
+
+    // Static method: can be called without creating an instance
+    static void increment() {
+        sharedCount++;
+    }
+
+    // Instance variable: unique to each instance
+    int instanceCount = 0;
+
+    // Instance method
+    void display() {
+        System.out.println("Shared Count: " + sharedCount);
+        System.out.println("Instance Count: " + instanceCount);
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        StaticExample.increment(); // Increments shared static variable
+        StaticExample obj1 = new StaticExample();
+        StaticExample obj2 = new StaticExample();
+        obj1.instanceCount++; // Incrementing instance variable for obj1
+        obj1.display();
+        obj2.instanceCount++; // Incrementing instance variable for obj2
+        obj2.display();
+    }
+}
+```
+
+### **Expected Output**
+```
+Shared Count: 1
+Instance Count: 1
+Shared Count: 1
+Instance Count: 1
+```
+
+### **Explanation:**
+- The **static variable `sharedCount` is shared** across all instances. Even though `obj1` and `obj2` are separate objects, `sharedCount` remains `1` for both.
+- The **instance variable `instanceCount` is unique** to each object. Each object maintains its **own copy** of `instanceCount`, so incrementing `obj1.instanceCount` does **not** affect `obj2.instanceCount`.
